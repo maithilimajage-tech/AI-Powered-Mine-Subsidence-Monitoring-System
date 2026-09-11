@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mine Subsidence Monitoring System</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Leaflet Map -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <div class="logo-icon">
+                ⛰
+            </div>
+
+            <div>
+                <h2>TerraMind</h2>
+                <span>Smarter Mines. Safer Tomorrow.</span>
+            </div>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a class="active">
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+            <a>
+                🗺
+                <span>Mine Map</span>
+            </a>
+
+            <a>
+                📡
+                <span>Sensors</span>
+            </a>
+
+            <a>
+                🔔
+                <span>Alerts</span>
+                <b class="notification">3</b>
+            </a>
+
+            <a>
+                📊
+                <span>Analytics</span>
+            </a>
+
+            <a>
+                🧠
+                <span>AI Prediction</span>
+            </a>
+
+            <a>
+                ⚙
+                <span>Adaptive Monitoring</span>
+            </a>
+
+            <a>
+                🛡
+                <span>Self-Diagnosis</span>
+            </a>
+
+            <a>
+                ⚙
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="mini-logo">
+                ⛰
+            </div>
+
+            <p>
+                Protecting people,<br>
+                preserving resources,<br>
+                with intelligent monitoring.
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN AREA ================= -->
+
+    <main class="main">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Mine Subsidence Monitoring System</h1>
+
+                <p>
+                    AI-Powered
+                    <span>|</span>
+                    Real-Time
+                    <span>|</span>
+                    Adaptive
+                    <span>|</span>
+                    Self-Diagnosing
+                </p>
+
+            </div>
+
+
+            <div class="system-status">
+
+                <div class="live-status">
+                    <span></span>
+                    System Live
+                </div>
+
+                <div id="dateTime">
+                    Loading...
+                </div>
+
+                <div class="header-icon">
+                    🔔
+                </div>
+
+                <div class="user-icon">
+                    👤
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= STATUS CARDS ================= -->
+
+        <section class="status-cards">
+
+
+            <!-- TOTAL NODES -->
+
+            <div class="status-card blue">
+
+                <div class="card-icon">
+                    🔗
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Total Sensor Nodes</h3>
+
+                    <strong id="totalNodes">
+                        12
+                    </strong>
+
+                    <p>
+                        <span class="up">↑ 0</span>
+                        vs last hour
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- HEALTHY -->
+
+            <div class="status-card green">
+
+                <div class="card-icon">
+                    ✓
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Healthy</h3>
+
+                    <strong id="healthyNodes">
+                        8
+                    </strong>
+
+                    <div class="percentage">
+                        66.7%
+                    </div>
+
+                    <div class="progress">
+                        <div style="width:66.7%"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- WARNING -->
+
+            <div class="status-card yellow">
+
+                <div class="card-icon">
+                    ⚠
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Warning</h3>
+
+                    <strong id="warningNodes">
+                        3
+                    </strong>
+
+                    <div class="percentage">
+                        25.0%
+                    </div>
+
+                    <div class="progress">
+                        <div style="width:25%"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CRITICAL -->
+
+            <div class="status-card red">
+
+                <div class="card-icon">
+                    !
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Critical</h3>
+
+                    <strong id="criticalNodes">
+                        1
+                    </strong>
+
+                    <div class="percentage">
+                        8.3%
+                    </div>
+
+                    <div class="progress">
+                        <div style="width:8.3%"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MAIN GRID ================= -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- MAP -->
+
+            <div class="panel map-panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        📍 Real-Time Mine Risk Map
+                    </h2>
+
+                    <div class="map-legend">
+
+                        <span class="safe">
+                            ● Safe
+                        </span>
+
+                        <span class="warning">
+                            ● Warning
+                        </span>
+
+                        <span class="critical">
+                            ● Critical
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div id="mineMap"></div>
+
+            </div>
+
+
+            <!-- ALERTS -->
+
+            <div class="panel alerts-panel">
+
+                <div class="panel-header">
+
+                    <h2>Active Alerts</h2>
+
+                    <span class="view-all">
+                        View All →
+                    </span>
+
+                </div>
+
+
+                <div class="alert-item critical-alert">
+
+                    <span class="alert-symbol">
+                        !
+                    </span>
+
+                    <div>
+
+                        <b>
+                            Node N03 – Critical Risk
+                        </b>
+
+                        <p>
+                            Rapid displacement increase detected
+                        </p>
+
+                    </div>
+
+                    <time>
+                        14:28
+                    </time>
+
+                </div>
+
+
+                <div class="alert-item warning-alert">
+
+                    <span class="alert-symbol">
+                        !
+                    </span>
+
+                    <div>
+
+                        <b>
+                            Node N05 – Warning
+                        </b>
+
+                        <p>
+                            Tilt value approaching threshold
+                        </p>
+
+                    </div>
+
+                    <time>
+                        14:12
+                    </time>
+
+                </div>
+
+
+                <div class="alert-item warning-alert">
+
+                    <span class="alert-symbol">
+                        !
+                    </span>
+
+                    <div>
+
+                        <b>
+                            Node N07 – Warning
+                        </b>
+
+                        <p>
+                            Vibration levels elevated
+                        </p>
+
+                    </div>
+
+                    <time>
+                        13:56
+                    </time>
+
+                </div>
+
+            </div>
+
+
+            <!-- SENSOR STATUS -->
+
+            <div class="panel sensor-panel">
+
+                <div class="panel-header">
+
+                    <h2>Sensor Node Status</h2>
+
+                    <span class="view-all">
+                        View All →
+                    </span>
+
+                </div>
+
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Node ID</th>
+                            <th>Status</th>
+                            <th>Tilt (°)</th>
+                            <th>Displacement (mm)</th>
+                            <th>Battery</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="sensorTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= CHARTS ================= -->
+
+        <section class="charts-grid">
+
+
+            <div class="panel chart-panel">
+
+                <div class="panel-header">
+                    <h2>📈 Tilt Monitoring</h2>
+                </div>
+
+                <canvas id="tiltChart"></canvas>
+
+            </div>
+
+
+            <div class="panel chart-panel">
+
+                <div class="panel-header">
+                    <h2>📊 Displacement Trend</h2>
+                </div>
+
+                <canvas id="displacementChart"></canvas>
+
+            </div>
+
+
+            <div class="panel chart-panel">
+
+                <div class="panel-header">
+                    <h2>〽 Vibration Levels</h2>
+                </div>
+
+                <canvas id="vibrationChart"></canvas>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= AI SECTION ================= -->
+
+        <section class="bottom-grid">
+
+
+            <!-- AI -->
+
+            <div class="panel ai-panel">
+
+                <div class="panel-header">
+
+                    <h2>🧠 AI Risk Prediction</h2>
+
+                </div>
+
+
+                <div class="risk-container">
+
+                    <div class="risk-circle">
+
+                        <span>
+                            78%
+                        </span>
+
+                    </div>
+
+
+                    <div class="risk-info">
+
+                        <h3>
+                            Prediction
+                        </h3>
+
+                        <p>
+                            Increased probability of subsidence
+                            in Zone B within 48 hours.
+                        </p>
+
+                        <strong>
+                            HIGH
+                        </strong>
+
+                        <button>
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADAPTIVE -->
+
+            <div class="panel adaptive-panel">
+
+                <div class="panel-header">
+
+                    <h2>⚙ Adaptive Monitoring</h2>
+
+                </div>
+
+
+                <div class="adaptive-row">
+
+                    <span>🟢 Normal</span>
+
+                    <b>
+                        Every 10 minutes
+                    </b>
+
+                </div>
+
+
+                <div class="adaptive-row">
+
+                    <span>🟡 Warning</span>
+
+                    <b>
+                        Every 2 minutes
+                    </b>
+
+                </div>
+
+
+                <div class="adaptive-row">
+
+                    <span>🔴 Critical</span>
+
+                    <b>
+                        Every 1 minute
+                    </b>
+
+                </div>
+
+            </div>
+
+
+            <!-- SELF DIAGNOSIS -->
+
+            <div class="panel diagnosis-panel">
+
+                <div class="panel-header">
+
+                    <h2>🛡 Self-Diagnosing Sensors</h2>
+
+                </div>
+
+
+                <div class="diagnosis-row">
+
+                    <span>N01</span>
+                    <span class="healthy-text">● Healthy</span>
+                    <span>—</span>
+
+                </div>
+
+
+                <div class="diagnosis-row">
+
+                    <span>N02</span>
+                    <span class="healthy-text">● Healthy</span>
+                    <span>—</span>
+
+                </div>
+
+
+                <div class="diagnosis-row">
+
+                    <span>N03</span>
+                    <span class="critical-text">● Sensor Fault</span>
+                    <span>Calibration needed</span>
+
+                </div>
+
+
+                <div class="diagnosis-row">
+
+                    <span>N05</span>
+                    <span class="warning-text">● Warning</span>
+                    <span>Low battery</span>
+
+                </div>
+
+
+                <div class="diagnosis-row">
+
+                    <span>N07</span>
+                    <span class="warning-text">● Warning</span>
+                    <span>Drift detected</span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <span>
+                TerraMind
+            </span>
+
+            <span>
+                |
+            </span>
+
+            <span>
+                Mine Subsidence Monitoring System
+            </span>
+
+            <div class="footer-items">
+
+                <span>📡 LoRa Communication</span>
+
+                <span>🧠 AI/ML Analytics</span>
+
+                <span>◷ Real-Time Monitoring</span>
+
+                <span>🔔 Smart Alerts</span>
+
+                <span>🛡 Safer Mines</span>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- JavaScript -->
+
+<script src="data/sensor-data.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+
+</html>
