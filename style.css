@@ -783,3 +783,35 @@ footer > span:first-child {
     font-weight: bold;
 
 }
+/* --- FIX MAP CONTAINER HEIGHT & BOTTOM GAP --- */
+.map-card, 
+.card:has(#map) {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+#map, 
+.leaflet-container {
+  flex: 1 1 auto !important;
+  min-height: 440px !important; /* Expands map down to match adjacent cards */
+  width: 100% !important;
+}
+
+/* --- FIX SYMBOL & STATUS COLORS --- */
+:root {
+  --status-safe: #10b981;      /* Emerald Green */
+  --status-warning: #f59e0b;   /* Amber Yellow */
+  --status-critical: #ef4444;  /* Crimson Red */
+}
+
+/* Ensure legend indicators and dots match */
+.legend span:nth-child(1), .status-safe { 
+  color: var(--status-safe) !important; 
+}
+.legend span:nth-child(2), .status-warning { 
+  color: var(--status-warning) !important; 
+}
+.legend span:nth-child(3), .status-critical { 
+  color: var(--status-critical) !important; 
+}
