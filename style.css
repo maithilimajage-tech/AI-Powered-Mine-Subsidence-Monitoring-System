@@ -857,3 +857,52 @@ section:has(#map) > div:first-child {
 .footer-icon {
   margin-bottom: 8px;
 }
+<head>
+  <!-- other meta and title tags -->
+
+  <style>
+    /* ... your existing styles ... */
+
+    /* Paste Step 3 right here at the very end of your style tag: */
+    .brand-header {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      padding: 16px 20px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-header .logo-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 8px;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 1.25rem !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      margin: 0 !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-tagline {
+      font-size: 0.68rem !important;
+      color: #94a3b8 !important;
+      margin-top: 2px !important;
+      line-height: 1 !important;
+      white-space: nowrap;
+    }
+  </style>
+</head>
