@@ -71,6 +71,9 @@ function renderMapMarkers() {
     sensorMarkers.push(marker);
   });
 }
+setTimeout(() => {
+  map.invalidateSize();
+}, 200);
 
 /* ==========================================
    CURRENT DATE AND TIME
