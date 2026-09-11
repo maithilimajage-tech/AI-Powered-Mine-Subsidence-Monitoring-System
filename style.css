@@ -815,3 +815,32 @@ footer > span:first-child {
 .legend span:nth-child(3), .status-critical { 
   color: var(--status-critical) !important; 
 }
+/* Force the map container to match the right column height */
+#map,
+.leaflet-container {
+  height: 620px !important;
+  min-height: 620px !important;
+  width: 100% !important;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Ensure the card holding the map stretches fully */
+.map-card,
+section:has(#map) > div:first-child {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+/* Fix Status Colors on Map & Table */
+.safe, [data-status="SAFE"], span:contains("Safe") {
+  color: #10b981 !important; /* Vivid Emerald */
+}
+
+.warning, [data-status="WARNING"], span:contains("Warning") {
+  color: #f59e0b !important; /* Vivid Amber */
+}
+
+.critical, [data-status="CRITICAL"], span:contains("Critical") {
+  color: #ef4444 !important; /* Vivid Red */
+}
