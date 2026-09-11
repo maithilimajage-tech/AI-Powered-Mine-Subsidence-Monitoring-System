@@ -844,3 +844,16 @@ section:has(#map) > div:first-child {
 .critical, [data-status="CRITICAL"], span:contains("Critical") {
   color: #ef4444 !important; /* Vivid Red */
 }
+.logo-icon, .footer-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.footer-icon {
+  margin-bottom: 8px;
+}
